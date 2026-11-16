@@ -1,0 +1,205 @@
+/* ==========================================================================
+   WanderStay - Multi-Step Resort & Tour Booking Engine Stylesheet
+   Author: Deb Gourab Biswas
+   ========================================================================== */
+
+:root {
+  --brand-gradient: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
+}
+
+body {
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+.brand-badge {
+  width: 38px;
+  height: 38px;
+  background: var(--brand-gradient);
+}
+
+/* Hero Carousel */
+.hero-slide {
+  min-height: 430px;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+}
+
+/* Wizard Stepper Pills */
+.step-pill {
+  padding: 0.55rem 0.5rem;
+  border-radius: 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--bs-secondary-color);
+  background-color: var(--bs-body-bg);
+  border: 1px solid var(--bs-border-color);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.step-pill .step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  font-size: 0.72rem;
+  background-color: var(--bs-secondary-bg);
+  color: var(--bs-body-color);
+}
+
+.step-pill.active {
+  background: var(--brand-gradient);
+  color: #ffffff;
+  border-color: transparent;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+}
+
+.step-pill.active .step-num {
+  background-color: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+}
+
+.step-pill.completed {
+  border-color: #198754;
+  color: #198754;
+}
+
+.step-pill.completed .step-num {
+  background-color: #198754;
+  color: #ffffff;
+}
+
+/* Selectable Cards (Resorts, Room Tiers, Add-Ons) */
+.selectable-card {
+  cursor: pointer;
+  border: 2px solid var(--bs-border-color);
+  border-radius: 0.85rem;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.selectable-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0.4rem 1rem rgba(0, 0, 0, 0.07);
+}
+
+.selectable-card.selected {
+  border-color: #2563eb;
+  background-color: rgba(37, 99, 235, 0.04);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.resort-select-img {
+  height: 115px;
+  object-fit: cover;
+  border-top-left-radius: 0.72rem;
+  border-top-right-radius: 0.72rem;
+}
+
+/* Sticky Summary Card */
+@media (min-width: 992px) {
+  .sticky-summary-card {
+    position: sticky;
+    top: 84px;
+  }
+}
+
+/* Gallery Card Hover Zoom */
+.gallery-card {
+  overflow: hidden;
+  border-radius: 0.85rem;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.gallery-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.1) !important;
+}
+
+.gallery-img-wrapper {
+  overflow: hidden;
+  height: 210px;
+  position: relative;
+}
+
+.gallery-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.gallery-card:hover .gallery-img-wrapper img {
+  transform: scale(1.07);
+}
+
+.btn-xs {
+  font-size: 0.72rem;
+}
+
+/* Fix form-floating label text overlap on smaller screens or long labels */
+.form-floating > label {
+  font-size: 0.82rem;
+  padding: 1rem 0.75rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+.form-floating > .form-control:focus ~ label,
+.form-floating > .form-control:not(:placeholder-shown) ~ label,
+.form-floating > .form-select ~ label {
+  transform: scale(0.85) translateY(-0.75rem) translateX(0.15rem);
+  background-color: transparent;
+}
+
+/* Additional Responsive Tweaks */
+@media (max-width: 767.98px) {
+  .hero-slide {
+    min-height: 320px;
+  }
+  .step-pill {
+    font-size: 0.75rem;
+    padding: 0.4rem 0.35rem;
+  }
+  .step-pill .step-num {
+    width: 18px;
+    height: 18px;
+    font-size: 0.65rem;
+  }
+}
+
+/* Fix mobile horizontal overflow / right side whitespace */
+html, body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden !important;
+  position: relative;
+}
+
+.container, .container-fluid {
+  max-width: 100%;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (max-width: 575.98px) {
+  .row {
+    margin-left: -0.5rem;
+    margin-right: -0.5rem;
+  }
+  .row > [class*="col-"] {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+}
