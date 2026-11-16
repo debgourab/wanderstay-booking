@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WanderStay | Multi-Step Resort & Luxury Tour Booking Engine</title>
+  <meta name="description" content="Interactive Multi-Step Resort & Tour Booking Engine built with HTML5, CSS3, Bootstrap 5.3, jQuery 3.7, and Vanilla JavaScript (ES6+)." />
+
+  <!-- Google Fonts: Plus Jakarta Sans & Playfair Display -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap 5.3.3 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- Bootstrap Icons 1.11.3 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+
+  <!-- ==================== STICKY TOP NAVBAR ==================== -->
+  <nav class="navbar navbar-expand-lg sticky-top bg-body border-bottom py-2 shadow-xs">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2 fw-bold" href="#">
+        <div class="brand-badge rounded-3 d-flex align-items-center justify-content-center text-white shadow-sm">
+          <i class="bi bi-compass-fill fs-5"></i>
+        </div>
+        <div>
+          <span class="fs-5 tracking-tight">Wander<span class="text-primary">Stay</span></span>
+          <span class="d-block text-body-secondary fw-normal" style="font-size: 0.68rem; margin-top: -4px;"> Luxury Resorts &amp; Curated Tours</span>
+        </div>
+      </a>
+
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="mainNavbar">
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-lg-2">
+          <li class="nav-item">
+            <a class="nav-link fw-medium" href="#bookingWizardSection"><i class="bi bi-calendar2-check me-1 text-primary"></i>Book a Stay</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fw-medium" href="#destinationsSection"><i class="bi bi-geo-alt me-1 text-primary"></i>Resorts &amp; Gallery</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fw-medium" href="#faqSection"><i class="bi bi-patch-question me-1 text-primary"></i>Travel FAQs</a>
+          </li>
+        </ul>
+
+        <div class="d-flex align-items-center gap-2 flex-wrap">
+          <!-- Currency Switcher (INR / USD) -->
+          <div class="btn-group btn-group-sm" role="group" aria-label="Currency Toggle">
+            <input type="radio" class="btn-check" name="currencyToggle" id="currINR" value="INR" checked>
+            <label class="btn btn-outline-secondary fw-semibold" for="currINR">₹ INR</label>
+
+            <input type="radio" class="btn-check" name="currencyToggle" id="currUSD" value="USD">
+            <label class="btn btn-outline-secondary fw-semibold" for="currUSD">$ USD</label>
+          </div>
+
+          <!-- Dark / Light Theme Button -->
+          <button class="btn btn-outline-secondary btn-sm rounded-circle d-flex align-items-center justify-content-center" id="themeToggleBtn" style="width: 34px; height: 34px;" title="Toggle Dark/Light Theme">
+            <i class="bi bi-moon-stars-fill" id="themeIcon"></i>
+          </button>
+
+          <!-- My Bookings Modal Trigger -->
+          <button class="btn btn-primary btn-sm rounded-pill px-3 d-flex align-items-center gap-2 shadow-sm" data-bs-toggle="modal" data-bs-target="#savedBookingsModal">
+            <i class="bi bi-luggage-fill"></i>
+            <span>My Bookings</span>
+            <span class="badge rounded-pill text-bg-light text-primary fw-bold" id="navBookingsCount">0</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ==================== HERO CAROUSEL ==================== -->
+  <header id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+
+    <div class="carousel-inner">
+      <!-- Slide 1 -->
+      <div class="carousel-item active" data-bs-interval="5000">
+        <div class="hero-slide" style="background-image: linear-gradient(rgba(15, 23, 42, 0.55), rgba(15, 23, 42, 0.72)), url('https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=1600&q=80');">
+          <div class="container text-center text-white py-5">
+            <span class="badge rounded-pill text-bg-warning text-dark fw-semibold px-3 py-2 mb-3">
+              <i class="bi bi-stars me-1"></i>Use Code WANDER20 for 20% Off
+            </span>
+            <h1 class="display-5 fw-bold font-serif mb-3">Escape to Handpicked Luxury Resorts</h1>
+            <p class="lead mx-auto mb-4 text-white-50" style="max-width: 680px;">
+              Customize your stay, room suite, and guided local experiences in 4 seamless steps with instant price breakdown and e-ticket confirmation.
+            </p>
+            <div class="d-flex justify-content-center gap-3">
+              <a href="#bookingWizardSection" class="btn btn-primary btn-lg rounded-pill px-4 shadow">
+                Start Booking Wizard <i class="bi bi-arrow-right ms-1"></i>
+              </a>
+              <a href="#destinationsSection" class="btn btn-outline-light btn-lg rounded-pill px-4">
+                Explore Resorts
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 2 -->
+      <div class="carousel-item" data-bs-interval="5000">
+        <div class="hero-slide" style="background-image: linear-gradient(rgba(15, 23, 42, 0.55), rgba(15, 23, 42, 0.72)), url('https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=1600&q=80');">
+          <div class="container text-center text-white py-5">
+            <span class="badge rounded-pill text-bg-info text-dark fw-semibold px-3 py-2 mb-3">
+              <i class="bi bi-tsunami me-1"></i>Coastal &amp; Island Retreats
+            </span>
+            <h2 class="display-5 fw-bold font-serif mb-3">Private Infinity Villas &amp; Sunset Cruises</h2>
+            <p class="lead mx-auto mb-4 text-white-50" style="max-width: 680px;">
+              From Goa's pristine beaches to Kerala's tranquil backwaters, bundle gourmet dining and spa wellness right into your reservation.
+            </p>
+            <a href="#bookingWizardSection" class="btn btn-primary btn-lg rounded-pill px-4 shadow">
+              Customize Coastal Stay <i class="bi bi-arrow-right ms-1"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 3 -->
+      <div class="carousel-item" data-bs-interval="5000">
+        <div class="hero-slide" style="background-image: linear-gradient(rgba(15, 23, 42, 0.55), rgba(15, 23, 42, 0.72)), url('https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1600&q=80');">
+          <div class="container text-center text-white py-5">
+            <span class="badge rounded-pill text-bg-success fw-semibold px-3 py-2 mb-3">
+              <i class="bi bi-tree-fill me-1"></i>Himalayan &amp; Heritage Estates
+            </span>
+            <h2 class="display-5 fw-bold font-serif mb-3">Alpine Chalets &amp; Royal Palaces</h2>
+            <p class="lead mx-auto mb-4 text-white-50" style="max-width: 680px;">
+              Wake up to snow-capped peaks in Manali or heritage tea gardens in Darjeeling with private airport transfers included.
+            </p>
+            <a href="#bookingWizardSection" class="btn btn-primary btn-lg rounded-pill px-4 shadow">
+              Plan Mountain Escape <i class="bi bi-arrow-right ms-1"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </header>
+
+  <!-- ==================== MAIN BOOKING ENGINE SECTION ==================== -->
+  <main class="py-5" id="bookingWizardSection">
+    <div class="container">
+
+      <!-- Section Heading -->
+      <div class="row justify-content-between align-items-end mb-4">
+        <div class="col-lg-7">
+          <span class="text-primary fw-bold text-uppercase small tracking-wider">Guided 4-Step Reservation Engine</span>
+          <h2 class="h2 fw-bold font-serif mt-1 mb-0">Build Your Custom Resort &amp; Tour Package</h2>
+        </div>
+        <div class="col-lg-5 text-lg-end mt-2 mt-lg-0">
+          <span class="badge text-bg-success-subtle text-success border border-success-subtle rounded-pill px-3 py-2">
+            <i class="bi bi-shield-check me-1"></i>Instant Price Lock &amp; Free Cancellation up to 48h
+          </span>
+        </div>
+      </div>
+
+      <div class="row g-4">
+        <!-- ==================== LEFT COLUMN: 4-STEP WIZARD ==================== -->
+        <div class="col-12 col-lg-8">
+          <div class="card border shadow-sm rounded-4 overflow-hidden">
+
+            <!-- Wizard Progress Header -->
+            <div class="card-header bg-body-tertiary border-bottom p-4">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="small fw-bold text-uppercase text-primary" id="wizardStepCounterText">Step 1 of 4: Destination &amp; Dates</span>
+                <span class="badge text-bg-primary rounded-pill" id="wizardProgressBadge">25% Complete</span>
+              </div>
+
+              <!-- Bootstrap Dynamic Progress Bar -->
+              <div class="progress mb-4" style="height: 8px;" role="progressbar" aria-label="Booking Wizard Progress">
+                <div class="progress-bar bg-primary progress-bar-striped progress-bar-animated transition-all" id="wizardProgressBar" style="width: 25%"></div>
+              </div>
+
+              <!-- Stepper Pills -->
+              <div class="row g-2 text-center" id="wizardStepPills">
+                <div class="col-3">
+                  <div class="step-pill active" data-step="1">
+                    <span class="step-num">1</span>
+                    <span class="d-none d-sm-inline ms-1">Stay &amp; Dates</span>
+                  </div>
+                </div>
+                <div class="col-3">
+                  <div class="step-pill" data-step="2">
+                    <span class="step-num">2</span>
+                    <span class="d-none d-sm-inline ms-1">Rooms &amp; Tours</span>
+                  </div>
+                </div>
+                <div class="col-3">
+                  <div class="step-pill" data-step="3">
+                    <span class="step-num">3</span>
+                    <span class="d-none d-sm-inline ms-1">Guest Info</span>
+                  </div>
+                </div>
+                <div class="col-3">
+                  <div class="step-pill" data-step="4">
+                    <span class="step-num">4</span>
+                    <span class="d-none d-sm-inline ms-1">Review &amp; Pay</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Wizard Form Body -->
+            <div class="card-body p-4">
+              <form id="bookingWizardForm" novalidate>
+
+                <!--Validation Alert Box (jQuery slideDown/slideUp) -->
+                <div id="wizardErrorAlert" class="alert alert-danger d-flex align-items-center gap-2 py-2 px-3 mb-4" role="alert" style="display: none;">
+                  <i class="bi bi-exclamation-octagon-fill fs-5"></i>
+                  <div class="small fw-medium" id="wizardErrorText">Please complete all required fields before proceeding.</div>
+                </div>
+
+                <!-- ==================== STEP 1: DESTINATION & DATES ==================== -->
+                <div class="wizard-step-pane" id="stepPane1" data-step="1">
+                  <h3 class="h5 fw-bold mb-3"><i class="bi bi-geo-alt-fill text-primary me-2"></i>1. Choose Your Resort &amp; Travel Dates</h3>
+
+                  <!-- Resort Selection Cards Grid -->
+                  <label class="form-label small fw-semibold text-body-secondary text-uppercase">Select Destination Resort <span class="text-danger">*</span></label>
+                  <div class="row g-3 mb-4" id="resortSelectionGrid">
+                    <!-- Populated dynamically via ES6 + jQuery -->
+                  </div>
+
+                  <!-- Date Pickers & Guests Row (Bootstrap Floating Labels) -->
+                  <div class="row g-3">
+                    <div class="col-12 col-md-6">
+                      <div class="form-floating">
+                        <input type="date" class="form-control" id="checkInDate" required />
+                        <label for="checkInDate"><i class="bi bi-calendar-event me-1"></i>Check-In Date *</label>
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                      <div class="form-floating">
+                        <input type="date" class="form-control" id="checkOutDate" required />
+                        <label for="checkOutDate"><i class="bi bi-calendar-check me-1"></i>Check-Out Date *</label>
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-sm-4">
+                      <div class="form-floating">
+                        <select class="form-select" id="adultsCount">
+                          <option value="1">1 Adult</option>
+                          <option value="2" selected>2 Adults</option>
+                          <option value="3">3 Adults</option>
+                          <option value="4">4 Adults</option>
+                          <option value="5">5 Adults</option>
+                          <option value="6">6 Adults</option>
+                        </select>
+                        <label for="adultsCount"><i class="bi bi-person-fill me-1"></i>Adults (12+ yrs)</label>
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-sm-4">
+                      <div class="form-floating">
+                        <select class="form-select" id="childrenCount">
+                          <option value="0" selected>0 Children</option>
+                          <option value="1">1 Child</option>
+                          <option value="2">2 Children</option>
+                          <option value="3">3 Children</option>
+                          <option value="4">4 Children</option>
+                        </select>
+                        <label for="childrenCount"><i class="bi bi-emoji-smile me-1"></i>Children (Free under 6)</label>
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-sm-4">
+                      <div class="form-floating">
+                        <select class="form-select" id="roomsCount">
+                          <option value="1" selected>1 Room / Suite</option>
+                          <option value="2">2 Rooms / Suites</option>
+                          <option value="3">3 Rooms / Suites</option>
+                        </select>
+                        <label for="roomsCount"><i class="bi bi-door-open-fill me-1"></i>Number of Rooms</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- ==================== STEP 2: ROOM TIER & TOUR ADD-ONS ==================== -->
+                <div class="wizard-step-pane" id="stepPane2" data-step="2" style="display: none;">
+                  <h3 class="h5 fw-bold mb-1"><i class="bi bi-house-heart-fill text-primary me-2"></i>2. Upgrade Room Suite &amp; Curated Experiences</h3>
+                  <p class="text-body-secondary small mb-3">Select your preferred accommodation tier and optional guided tour packages.</p>
+
+                  <label class="form-label small fw-semibold text-body-secondary text-uppercase">Accommodation Suite Tier <span class="text-danger">*</span></label>
+                  <div class="row g-3 mb-4" id="roomTierGrid">
+                    <!-- Populated dynamically -->
+                  </div>
+
+                  <label class="form-label small fw-semibold text-body-secondary text-uppercase">Optional Tour &amp; Hospitality Add-Ons</label>
+                  <div class="row g-3" id="tourAddonsGrid">
+                    <!-- Populated dynamically -->
+                  </div>
+                </div>
+
+                <!-- ==================== STEP 3: GUEST DETAILS & VALIDATION ==================== -->
+                <div class="wizard-step-pane" id="stepPane3" data-step="3" style="display: none;">
+                  <h3 class="h5 fw-bold mb-1"><i class="bi bi-person-vcard-fill text-primary me-2"></i>3. Primary Guest Contact &amp; Preferences</h3>
+                  <p class="text-body-secondary small mb-4">Your e-ticket voucher and chauffeur pickup details will be sent to this contact.</p>
+
+                  <div class="row g-3">
+                    <div class="col-12 col-md-6">
+                      <div class="form-floating">
+                        <input type="text" class="form-control" id="guestFullName" placeholder="Deb Gourab Biswas" required />
+                        <label for="guestFullName">Full Name (as on Govt. ID) *</label>
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                      <div class="form-floating">
+                        <input type="email" class="form-control" id="guestEmail" placeholder="name@example.com" required />
+                        <label for="guestEmail">Email Address *</label>
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                      <div class="form-floating">
+                        <input type="tel" class="form-control" id="guestPhone" placeholder="+91 9876543210" required />
+                        <label for="guestPhone">Mobile / WhatsApp Number (10+ digits) *</label>
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                      <div class="form-floating">
+                        <select class="form-select" id="guestArrivalTime">
+                          <option value="Standard Check-In (12:00 PM - 03:00 PM)" selected>Standard (12:00 PM – 03:00 PM)</option>
+                          <option value="Early Arrival (08:00 AM - 12:00 PM)">Early Arrival (08:00 AM – 12:00 PM)</option>
+                          <option value="Evening Arrival (03:00 PM - 08:00 PM)">Evening Arrival (03:00 PM – 08:00 PM)</option>
+                          <option value="Late Night Arrival (After 08:00 PM)">Late Night (After 08:00 PM)</option>
+                        </select>
+                        <label for="guestArrivalTime">Estimated Check-In Window</label>
+                      </div>
+                    </div>
+
+                    <div class="col-12">
+                      <div class="form-floating">
+                        <textarea class="form-control" placeholder="Dietary preferences, honeymoon setup, high floor..." id="guestSpecialRequests" style="height: 100px"></textarea>
+                        <label for="guestSpecialRequests">Special Requests (Dietary preferences, anniversary decor, accessibility)</label>
+                      </div>
+                    </div>
+
+                    <div class="col-12">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="termsAgreeCheck" required />
+                        <label class="form-check-label small" for="termsAgreeCheck">
+                          I agree to the resort check-in policies, refundable security deposit terms, and 48-hour free cancellation policy. <span class="text-danger">*</span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- ==================== STEP 4: REVIEW SUMMARY & PROMO CODE ==================== -->
+                <div class="wizard-step-pane" id="stepPane4" data-step="4" style="display: none;">
+                  <h3 class="h5 fw-bold mb-1"><i class="bi bi-receipt-cutoff text-primary me-2"></i>4. Review Itinerary &amp; Confirm Reservation</h3>
+                  <p class="text-body-secondary small mb-3">Verify your stay details below and apply a promotional coupon before locking your reservation.</p>
+
+                  <!-- Dynamic Review Card -->
+                  <div class="p-3 rounded-3 bg-body-tertiary border mb-4" id="step4ReviewCard">
+                    <!-- Populated via JS -->
+                  </div>
+
+                  <!-- Promo Code Box -->
+                  <div class="card border-primary-subtle bg-primary-subtle bg-opacity-10 mb-3">
+                    <div class="card-body py-3">
+                      <label for="promoCodeInput" class="form-label small fw-bold text-primary mb-1">
+                        <i class="bi bi-ticket-perforated-fill me-1"></i>Have a Promo Code?
+                      </label>
+                      <div class="input-group input-group-sm mb-2">
+                        <input type="text" class="form-control text-uppercase fw-semibold" id="promoCodeInput" placeholder="Try WANDER20, FIRST50, or FESTIVE15" />
+                        <button class="btn btn-primary px-3" type="button" id="applyPromoBtn">Apply Coupon</button>
+                        <button class="btn btn-outline-secondary" type="button" id="removePromoBtn" style="display: none;">Remove</button>
+                      </div>
+                      <div class="d-flex flex-wrap gap-2 align-items-center">
+                        <span class="text-body-secondary" style="font-size: 0.75rem;">Quick Click Coupons:</span>
+                        <button type="button" class="btn btn-xs btn-outline-primary rounded-pill py-0 px-2 quick-promo-chip" data-code="WANDER20">WANDER20 (20% Off)</button>
+                        <button type="button" class="btn btn-xs btn-outline-success rounded-pill py-0 px-2 quick-promo-chip" data-code="FIRST50">FIRST50 (₹5,000 Off)</button>
+                        <button type="button" class="btn btn-xs btn-outline-info rounded-pill py-0 px-2 quick-promo-chip" data-code="FESTIVE15">FESTIVE15 (15% Off)</button>
+                      </div>
+                      <div id="promoFeedbackMsg" class="small mt-2 fw-medium" style="display: none;"></div>
+                    </div>
+                  </div>
+
+                  <!-- Payment Mode Selector -->
+                  <div class="mb-2">
+                    <label class="form-label small fw-semibold text-body-secondary text-uppercase">Select Payment Preference</label>
+                    <div class="row g-2">
+                      <div class="col-12 col-sm-6">
+                        <input type="radio" class="btn-check" name="paymentMethod" id="payUPI" value="Instant UPI / Card (Zero Convenience Fee)" checked>
+                        <label class="btn btn-outline-secondary w-100 text-start p-2 d-flex align-items-center gap-2" for="payUPI">
+                          <i class="bi bi-credit-card-2-front-fill text-primary fs-5"></i>
+                          <div>
+                            <div class="small fw-bold">Instant Online Pay</div>
+                            <div class="text-body-secondary" style="font-size: 0.7rem;">UPI, Credit/Debit Card, NetBanking</div>
+                          </div>
+                        </label>
+                      </div>
+                      <div class="col-12 col-sm-6">
+                        <input type="radio" class="btn-check" name="paymentMethod" id="payAtResort" value="Pay at Resort Check-In (Card Hold)">
+                        <label class="btn btn-outline-secondary w-100 text-start p-2 d-flex align-items-center gap-2" for="payAtResort">
+                          <i class="bi bi-building-check text-success fs-5"></i>
+                          <div>
+                            <div class="small fw-bold">Pay at Resort</div>
+                            <div class="text-body-secondary" style="font-size: 0.7rem;">Zero upfront charge today</div>
+                          </div>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Wizard Footer Navigation Buttons -->
+                <div class="d-flex justify-content-between align-items-center pt-4 mt-4 border-top">
+                  <button type="button" class="btn btn-outline-secondary rounded-pill px-4" id="wizardPrevBtn" disabled>
+                    <i class="bi bi-arrow-left me-1"></i>Previous Step
+                  </button>
+
+                  <button type="button" class="btn btn-primary rounded-pill px-4 shadow-sm" id="wizardNextBtn">
+                    <span>Continue to Rooms &amp; Tours</span>
+                    <i class="bi bi-arrow-right ms-1"></i>
+                  </button>
+
+                  <button type="submit" class="btn btn-success btn-lg rounded-pill px-4 shadow" id="wizardSubmitBtn" style="display: none;">
+                    <i class="bi bi-check2-circle me-1"></i>Confirm &amp; Generate E-Ticket
+                  </button>
+                </div>
+
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== RIGHT COLUMN: LIVE STICKY PRICE BREAKDOWN ==================== -->
+        <div class="col-12 col-lg-4">
+          <div class="card border shadow-sm rounded-4 sticky-summary-card">
+            <div class="position-relative">
+              <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=800&q=80" id="summaryResortImg" class="card-img-top rounded-top-4" alt="Selected Resort" style="height: 175px; object-fit: cover;" />
+              <span class="badge text-bg-dark bg-opacity-75 position-absolute bottom-0 start-0 m-3 px-3 py-1 rounded-pill" id="summaryLocationBadge">
+                <i class="bi bi-geo-alt-fill text-warning me-1"></i>Goa, India
+              </span>
+              <span class="badge text-bg-primary position-absolute top-0 end-0 m-3 px-2 py-1 rounded-pill" id="summaryRatingBadge">
+                <i class="bi bi-star-fill text-warning me-1"></i>4.9
+              </span>
+            </div>
+
+            <div class="card-body p-4">
+              <h4 class="h6 fw-bold mb-1" id="summaryResortName">Azure Palms Beachfront Resort</h4>
+              <p class="text-body-secondary small mb-3" id="summaryRoomTierName">Deluxe Garden Suite &middot; 1 Room</p>
+
+              <div class="p-2 px-3 rounded-3 bg-body-tertiary border small mb-3">
+                <div class="d-flex justify-content-between py-1 border-bottom">
+                  <span class="text-body-secondary"><i class="bi bi-calendar-range me-1"></i>Stay Duration</span>
+                  <span class="fw-semibold" id="summaryDatesText">3 Nights</span>
+                </div>
+                <div class="d-flex justify-content-between py-1 pt-2">
+                  <span class="text-body-secondary"><i class="bi bi-people me-1"></i>Guests</span>
+                  <span class="fw-semibold" id="summaryGuestsText">2 Adults, 0 Children</span>
+                </div>
+              </div>
+
+              <!-- Itemized Fare Breakdown -->
+              <h5 class="small fw-bold text-uppercase text-body-secondary mb-2">Live Fare Breakdown</h5>
+              <ul class="list-unstyled small mb-3">
+                <li class="d-flex justify-content-between py-1">
+                  <span class="text-body-secondary" id="summaryBaseCalcLabel">Room Base (3 Nights)</span>
+                  <span class="fw-medium font-monospace" id="summaryBaseAmount">₹0</span>
+                </li>
+                <li class="d-flex justify-content-between py-1">
+                  <span class="text-body-secondary" id="summaryTierUpgradeLabel">Suite Tier Upgrade</span>
+                  <span class="fw-medium font-monospace" id="summaryTierAmount">₹0</span>
+                </li>
+                <li class="d-flex justify-content-between py-1">
+                  <span class="text-body-secondary" id="summaryAddonsLabel">Tour &amp; Dining Add-Ons (0)</span>
+                  <span class="fw-medium font-monospace" id="summaryAddonsAmount">₹0</span>
+                </li>
+                <li class="d-flex justify-content-between py-1 text-success" id="summaryDiscountRow" style="display: none !important;">
+                  <span><i class="bi bi-tag-fill me-1"></i>Promo Discount (<span id="summaryPromoCodeTag"></span>)</span>
+                  <span class="fw-bold font-monospace" id="summaryDiscountAmount">-₹0</span>
+                </li>
+                <li class="d-flex justify-content-between py-1 border-top mt-1 pt-2">
+                  <span class="text-body-secondary">Luxury Hospitality Tax (12% GST)</span>
+                  <span class="fw-medium font-monospace" id="summaryTaxAmount">₹0</span>
+                </li>
+              </ul>
+
+              <div class="p-3 rounded-3 bg-primary-subtle text-primary-emphasis d-flex justify-content-between align-items-center">
+                <div>
+                  <span class="d-block small fw-semibold">Total Payable</span>
+                  <span class="text-body-secondary" style="font-size: 0.7rem;">Includes all taxes &amp; add-ons</span>
+                </div>
+                <span class="h4 fw-bold font-monospace mb-0" id="summaryGrandTotal">₹0</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- ==================== INTERACTIVE DESTINATION GALLERY & FILTER SECTION ==================== -->
+  <section class="py-5 bg-body-tertiary border-top border-bottom" id="destinationsSection">
+    <div class="container">
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-4 gap-3">
+        <div>
+          <span class="text-primary fw-bold text-uppercase small">Curated Portfolio</span>
+          <h2 class="h3 fw-bold font-serif mt-1 mb-0">Explore Our Signature Resorts &amp; Photo Gallery</h2>
+        </div>
+
+        <!-- Category Filter Tabs (jQuery Interactive Filtering) -->
+        <div class="d-flex flex-wrap gap-2" id="galleryFilterTabs">
+          <button type="button" class="btn btn-sm btn-primary rounded-pill px-3 gallery-filter-btn active" data-category="ALL">All Destinations</button>
+          <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill px-3 gallery-filter-btn" data-category="Beach">Beach &amp; Coastal</button>
+          <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill px-3 gallery-filter-btn" data-category="Mountain">Mountain &amp; Hills</button>
+          <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill px-3 gallery-filter-btn" data-category="Heritage">Royal &amp; Heritage</button>
+          <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill px-3 gallery-filter-btn" data-category="Wildlife">Eco &amp; Backwaters</button>
+        </div>
+      </div>
+
+      <!-- Gallery Cards Grid -->
+      <div class="row g-4" id="destinationGalleryGrid">
+        <!-- Populated dynamically via ES6 + jQuery -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== BOOTSTRAP 5 ACCORDION FAQ SECTION ==================== -->
+  <section class="py-5" id="faqSection">
+    <div class="container" style="max-width: 880px;">
+      <div class="text-center mb-4">
+        <span class="text-primary fw-bold text-uppercase small">Hospitality Policies</span>
+        <h2 class="h3 fw-bold font-serif mt-1">Frequently Asked Questions</h2>
+        <p class="text-body-secondary small">Everything you need to know about reservations, date changes, and curated tours.</p>
+      </div>
+
+      <div class="accordion shadow-xs" id="resortFaqAccordion">
+        <div class="accordion-item">
+          <h3 class="accordion-header">
+            <button class="accordion-button fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#faq1" aria-expanded="true">
+              1. How does the 48-hour free cancellation and date modification policy work?
+            </button>
+          </h3>
+          <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#resortFaqAccordion">
+            <div class="accordion-body text-body-secondary small">
+              All reservations made through WanderStay include complimentary cancellation or date rescheduling up to 48 hours prior to your scheduled check-in date. You can manage or cancel your active bookings anytime from the <strong>My Bookings</strong> drawer in the top navigation bar.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h3 class="accordion-header">
+            <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+              2. Are children's stays and extra beds included in the room rate?
+            </button>
+          </h3>
+          <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#resortFaqAccordion">
+            <div class="accordion-body text-body-secondary small">
+              Children under 6 years stay complimentary when sharing existing bedding with parents. For groups exceeding 2 adults per room, a nominal extra-guest hospitality supplement is automatically calculated in your live fare summary.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h3 class="accordion-header">
+            <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+              3. Which promo codes can I use during checkout?
+            </button>
+          </h3>
+          <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#resortFaqAccordion">
+            <div class="accordion-body text-body-secondary small">
+              In Step 4 of the booking wizard, you can apply <code>WANDER20</code> for 20% off your subtotal, <code>FIRST50</code> for a flat ₹5,000 instant discount on stays above ₹20,000, or <code>FESTIVE15</code> for a 15% seasonal holiday discount.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h3 class="accordion-header">
+            <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+              4. How are my bookings saved if there is no backend database connected?
+            </button>
+          </h3>
+          <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#resortFaqAccordion">
+            <div class="accordion-body text-body-secondary small">
+              WanderStay uses browser <code>localStorage</code> persistence via ES6 state management. Your confirmed e-tickets, selected currency, and theme preferences remain intact across page refreshes, and you can download a printable itinerary voucher for every reservation.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="bg-body-tertiary border-top py-4">
+    <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-2 small text-body-secondary">
+      <div>
+        <strong>WanderStay Booking Engine</strong> &mdash; Engineered by <strong>Deb Gourab Biswas</strong> using HTML5, CSS3, Bootstrap 5.3, jQuery 3.7 &amp; JavaScript (ES6+).
+      </div>
+      <div class="d-flex gap-3">
+        <a href="https://github.com/debgourab/wanderstay-booking" target="_blank" rel="noopener" class="text-decoration-none text-body-secondary"><i class="bi bi-github me-1"></i>GitHub</a>
+        <a href="#bookingWizardSection" class="text-decoration-none text-body-secondary">Book Now</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== MODAL 1: LIGHTBOX GALLERY VIEWER ==================== -->
+  <div class="modal fade" id="lightboxModal" tabindex="-1" aria-labelledby="lightboxModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content border-0 shadow-lg overflow-hidden">
+        <div class="modal-header border-bottom">
+          <div>
+            <h5 class="modal-title fw-bold mb-0" id="lightboxModalTitle">Resort Preview</h5>
+            <small class="text-body-secondary" id="lightboxModalLocation"></small>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-0">
+          <img src="" id="lightboxModalImg" class="w-100" style="max-height: 440px; object-fit: cover;" alt="Resort Preview" />
+          <div class="p-4">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-2">
+              <div id="lightboxModalBadges"></div>
+              <div class="h5 fw-bold text-primary mb-0" id="lightboxModalPrice"></div>
+            </div>
+            <p class="text-body-secondary small mb-3" id="lightboxModalDesc"></p>
+            <div class="d-flex justify-content-end gap-2">
+              <button type="button" class="btn btn-outline-secondary btn-sm rounded-pill px-3" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary btn-sm rounded-pill px-4" id="lightboxSelectResortBtn">
+                Select This Resort in Wizard <i class="bi bi-arrow-right ms-1"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 2: BOOKING CONFIRMATION E-TICKET ==================== -->
+  <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow-lg">
+        <div class="modal-header bg-success text-white border-0">
+          <h5 class="modal-title fw-bold" id="confirmationModalLabel">
+            <i class="bi bi-patch-check-fill me-2"></i>Reservation Confirmed!
+          </h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-4" id="confirmationVoucherBody">
+          <!-- Populated dynamically on form submit -->
+        </div>
+        <div class="modal-footer border-top d-flex justify-content-between">
+          <button type="button" class="btn btn-outline-secondary btn-sm rounded-pill px-3" id="downloadVoucherTxtBtn">
+            <i class="bi bi-download me-1"></i>Download E-Ticket (.txt)
+          </button>
+          <button type="button" class="btn btn-primary btn-sm rounded-pill px-4" data-bs-dismiss="modal" id="startNewBookingBtn">
+            Done
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 3: SAVED BOOKINGS MANAGER ==================== -->
+  <div class="modal fade" id="savedBookingsModal" tabindex="-1" aria-labelledby="savedBookingsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content border-0 shadow">
+        <div class="modal-header border-bottom">
+          <div>
+            <h5 class="modal-title fw-bold mb-0" id="savedBookingsModalLabel">
+              <i class="bi bi-luggage-fill text-primary me-2"></i>My Confirmed Reservations
+            </h5>
+            <small class="text-body-secondary">Stored locally in your browser via <code>localStorage</code></small>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-4" id="savedBookingsListContainer">
+          <!-- Populated dynamically -->
+        </div>
+        <div class="modal-footer border-top justify-content-between">
+          <button type="button" class="btn btn-outline-danger btn-sm rounded-pill" id="clearAllBookingsBtn">
+            <i class="bi bi-trash3 me-1"></i>Clear All History
+          </button>
+          <button type="button" class="btn btn-secondary btn-sm rounded-pill px-4" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== BOOTSTRAP TOAST CONTAINER ==================== -->
+  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="liveToast" class="toast align-items-center border-0 shadow" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body d-flex align-items-center gap-2">
+          <i class="bi bi-check-circle-fill text-success fs-5" id="toastIcon"></i>
+          <span id="toastMessage">Updated successfully!</span>
+        </div>
+        <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== SCRIPTS ==================== -->
+  <!-- jQuery 3.7.1 -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <!-- Bootstrap 5.3.3 Bundle JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Custom ES6+ Application Scripts -->
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
